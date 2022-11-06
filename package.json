@@ -1,0 +1,25 @@
+{
+  "name": "videoplayer",
+  "version": "1.0.0",
+  "description": "Esta aplicación web permite tener una un reproductor de video para poder reproducir nuestros videos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marvin1604/videoplayer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marvin1604/videoplayer/issues"
+  },
+  "homepage": "https://github.com/marvin1604/videoplayer#readme",
+  "dependencies": {
+    "fetch-node": "^0.0.1",
+    "node-fetch": "^3.2.10",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
