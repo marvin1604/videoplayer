@@ -5,10 +5,42 @@ window.onload = inicio;
 // "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4", "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"];
 var videoActual = 0;
 var vid;
+let titulo = document.querySelector(".title");
+let descripcion = document.querySelector(".descripcion");
+let containerCard = document.querySelector("#container-cards");
+
 function inicio(){
     console.log("comenzamos");
-    vid = document.querySelector("video");
+    vid = document.querySelector("video");    
     vid.src = `${videoSources[videoActual].sources}`;
+    titulo.innerHTML = `${videoSources[videoActual].title}`;
+    descripcion.innerHTML = `${videoSources[videoActual].description}`;
+
+    videoSources.forEach(element => {
+
+        const card = document.createElement("div");
+        card.classList = "card";
+
+        const imagen = document.createElement("img");
+        imagen.src = `${element.thumb}`;
+        imagen.classList = "imagen-card";
+
+        const tituloCard = document.createElement("h3");
+        tituloCard.innerText = `${element.title}`;
+        tituloCard.classList = "titulo-card";
+
+        const autorCard = document.createElement("h4");
+        autorCard.innerText = `${element.author}`;
+
+        const cardInfo = document.createElement("div");
+        cardInfo.classList = "cardInfo";
+
+        cardInfo.append(tituloCard, autorCard);
+        card.append(imagen, cardInfo);
+        containerCard.appendChild(card);
+    });
+    
+    
     reproducir();
     //tiempo del video
     vid.onloadeddata = actualizar;
@@ -22,6 +54,7 @@ const reload = document.querySelector(".reiniciar");
 const reduce = document.querySelector(".reducir");
 const containerControls = document.querySelector("#fila3");
 const tiempo = document.querySelector(".estado");
+// const card = document.querySelector(".cardC");
 
 
 player.addEventListener("click", play);
@@ -30,6 +63,11 @@ volumen.addEventListener("click", volumenShow);
 next.addEventListener("click", siguiente);
 reload.addEventListener("click", reiniciar);
 reduce.addEventListener("click", reducir);
+containerCard.addEventListener("click", escoger);
+
+function escoger(){
+    console.log("escoger")
+}
 
 function play(){
     if(vid.paused){
@@ -53,7 +91,7 @@ function volumenShow(){
 
 function reproducir(){
     vid.src = `${videoSources[videoActual].sources}`;
-    // vid.play();
+    vid.play();
 }
 
 function siguiente(){
@@ -62,9 +100,12 @@ function siguiente(){
         videoActual=0
     }
     reproducir();
+    titulo.innerHTML = `${videoSources[videoActual].title}`;
+    descripcion.innerHTML = `${videoSources[videoActual].description}`;
 }
 function reiniciar(){
     vid.currentTime = 0;
+    reproducir();
 }
 
 function reducir(){

@@ -34,7 +34,12 @@ header nav{
     margin: 12px;
 }
 .container-video{
-    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.pantalla{
+    width: 70%;
     max-width: 1000px;
     height: auto;
     background: rgb(237, 237, 235);
@@ -79,6 +84,9 @@ img{
     grid-template-columns: 1fr 30px;
     align-items: center;
 }
+#fila3 img{
+    cursor: pointer;
+}
 .izquierda{
     display: flex;
     justify-content: space-around;
@@ -102,14 +110,51 @@ img{
     background-color: transparent;
     width: 10%;
     color: black;
-    background: yellow;
-  }
-  footer{
+}
+.title{
+    font-weight: bold;
+    font-size: 2rem;
+}
+.container-video p{
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 500;
+}
+#container-cards{
+    max-width: 250px;
+    background: rgb(237, 237, 235);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: centers;
+    margin: 8px;
+}
+.card{
+    background: rgba(184, 184, 181, 0.217);
+    border-radius: 20px;
+    display: flex;
+    margin: 4px;
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    max-width: 250px;
+    width: 100%;
+}
+.titulo-card{
+    font-weight: bold;
+}
+
+.imagen-card{
+    width: 60px;
+    margin: 4px 12px;
+    border-radius: 8px;
+}
+
+footer{
     display: flex;
     flex-direction: column;
     text-align: center;
-  }
-  footer #buttons-footer{
+}
+footer #buttons-footer{
     min-width: 300px;
     display: flex;
     justify-content: center;
@@ -132,7 +177,7 @@ img{
     transform: scale(1.2);
 }
 @media(max-width: 600px) {
-    .container-video{
+    .pantalla{
         max-width: 500px;
     }
     #fila1 video{
@@ -160,6 +205,11 @@ img{
     }
     .estado{
         font-size: 10px;
+    }
+    .container-video p{
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 500;
     }
 }
 
