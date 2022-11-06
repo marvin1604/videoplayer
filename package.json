@@ -4,7 +4,7 @@
   "description": "Esta aplicación web permite tener una un reproductor de video para poder reproducir nuestros videos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "gh-pages -d src"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,8 @@
     "fetch-node": "^0.0.1",
     "node-fetch": "^3.2.10",
     "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
   }
 }
