@@ -178,6 +178,7 @@ footer #buttons-footer{
 }
 @media(max-width: 600px) {
     .pantalla{
+        width: 100%;
         max-width: 500px;
     }
     #fila1 video{
