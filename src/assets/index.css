@@ -33,10 +33,13 @@ header nav{
 #container-info{
     margin: 12px;
 }
+
+/* video reproductor*/
 .container-video{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;    
 }
 .pantalla{
     width: 70%;
