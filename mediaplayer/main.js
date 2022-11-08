@@ -15,11 +15,19 @@ function inicio(){
     vid.src = `${videoSources[videoActual].sources}`;
     titulo.innerHTML = `${videoSources[videoActual].title}`;
     descripcion.innerHTML = `${videoSources[videoActual].description}`;
+    barraLateral();    
+    // reproducir();
+    //tiempo del video
+    vid.onloadeddata = actualizar;
+    vid.ontimeupdate = actualizar;
+}
 
+function barraLateral(){
     videoSources.forEach(element => {
 
         const card = document.createElement("div");
         card.classList = "card";
+        
 
         const imagen = document.createElement("img");
         imagen.src = `${element.thumb}`;
@@ -39,13 +47,8 @@ function inicio(){
         card.append(imagen, cardInfo);
         containerCard.appendChild(card);
     });
-    
-    
-    reproducir();
-    //tiempo del video
-    vid.onloadeddata = actualizar;
-    vid.ontimeupdate = actualizar;
 }
+
 const player = document.querySelector(".play");
 const videoShow = document.querySelector("#fila1");
 const volumen = document.querySelector(".volumen");
@@ -54,20 +57,16 @@ const reload = document.querySelector(".reiniciar");
 const reduce = document.querySelector(".reducir");
 const containerControls = document.querySelector("#fila3");
 const tiempo = document.querySelector(".estado");
-// const card = document.querySelector(".cardC");
+const card = document.querySelector(".card");
+const volumeRange = document.querySelector("#volume-range")
 
 
 player.addEventListener("click", play);
 videoShow.addEventListener("click", play);
-volumen.addEventListener("click", volumenShow);
 next.addEventListener("click", siguiente);
 reload.addEventListener("click", reiniciar);
 reduce.addEventListener("click", reducir);
-containerCard.addEventListener("click", escoger);
 
-function escoger(){
-    console.log("escoger")
-}
 
 function play(){
     if(vid.paused){
@@ -79,21 +78,17 @@ function play(){
     }
 }
 
-function volumenShow(){
-    if(vid.volume == 1){
-        vid.volume = 0;
-        volumen.src = "https://i.postimg.cc/BZDqpMBP/silence-svgrepo-com.png";
-    }else{
-        vid.volume = 1;
-        volumen.src = "https://i.postimg.cc/QxM1Ls0c/volume-svgrepo-com.png";
-    }
-}
-
+/* play y reinicio */
 function reproducir(){
     vid.src = `${videoSources[videoActual].sources}`;
     vid.play();
 }
+function reiniciar(){
+    vid.currentTime = 0;
+    reproducir();
+}
 
+/* boton reiniciar */
 function siguiente(){
     videoActual++;
     if(videoActual >= videoSources.length){
@@ -103,11 +98,9 @@ function siguiente(){
     titulo.innerHTML = `${videoSources[videoActual].title}`;
     descripcion.innerHTML = `${videoSources[videoActual].description}`;
 }
-function reiniciar(){
-    vid.currentTime = 0;
-    reproducir();
-}
 
+
+/* ampliar y reducir pantalla */
 function reducir(){
     if (vid.classList.contains('fullscreen')) {
         vid.classList.remove('fullscreen');
@@ -118,6 +111,7 @@ function reducir(){
       }
 }
 
+/* control del tiempo */
 function actualizar(){
     tiempo.innerHTML = `${convertir(vid.currentTime)} / ${convertir(vid.duration)}`
 
@@ -132,3 +126,40 @@ function convertir(segundos){
     let minuto = (d.getMinutes()<=9) ? "0" + d.getMinutes() : d.getMinutes();
     return `${minuto} : ${segundo}`
 }
+
+
+
+/* control-volumen*/
+const setInitialVolume = () => {
+    vid.volume = 1;
+    volumeRange.value = 100;
+};
+const setVolume = () => {
+    vid.volume = volumeRange.value / 100;
+    if (vid.volume > 0) {
+        turnOnVolumeButton();
+    } else {
+        turnOnMuteButton();
+    }
+};
+
+const turnOnVolumeButton = () => {
+    volumen.src = "https://i.postimg.cc/QxM1Ls0c/volume-svgrepo-com.png";
+};
+
+const turnOnMuteButton = () => {
+    volumen.src = "https://i.postimg.cc/BZDqpMBP/silence-svgrepo-com.png";
+};
+function volumenShow(){
+    if(vid.volume == 1){
+        vid.volume = 0;
+        volumen.src = "https://i.postimg.cc/BZDqpMBP/silence-svgrepo-com.png";
+    }else{
+        vid.volume = 1;
+        volumen.src = "https://i.postimg.cc/QxM1Ls0c/volume-svgrepo-com.png";
+    }
+}
+
+volumeRange.addEventListener("click", setVolume);
+volumen.addEventListener("click", volumenShow);
+window.addEventListener("load", setInitialVolume, reproducir);

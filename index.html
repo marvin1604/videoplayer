@@ -10,6 +10,7 @@
     <title>VideoReproductor</title>
 </head>
 <body>
+  <script defer type="module" src="./mediaplayer/main.js"></script>
     <header>
         <nav class="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
             <div class="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
@@ -61,7 +62,7 @@
                     <img class="siguiente" src="https://i.postimg.cc/tJB61mC1/next-svgrepo-com.png" alt="">
                     <img class="reiniciar" src="https://i.postimg.cc/mgz9DjxD/reload-svgrepo-com.png" alt="">
                     <img class="volumen" src="https://i.postimg.cc/QxM1Ls0c/volume-svgrepo-com.png" alt="">
-                    <input type="range" id="volume-range">
+                    <input type="range" id="volume-range" min="0" max="100">
                     
                 </div>                
                 <div class="derecha">
@@ -103,6 +104,6 @@
             </div>
           </div>
       </footer>
-      <script defer type="module" src="./mediaplayer/main.js"></script>
+      
 </body>
 </html>
