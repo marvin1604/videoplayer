@@ -96,7 +96,7 @@ img{
     align-items: center;
     max-width: 800px;
 }
-.barra1{
+/* .barra1{
     background: silver;
     height: 7px;
     width: 40%;
@@ -105,6 +105,13 @@ img{
     background-color: crimson;
     height: 100%;
     width: 0%;
+} */
+
+
+
+#video-time{
+    width: 280px;
+    background-color: rgb(27, 134, 62);
 }
 .estado{
     font-weight: bold;
