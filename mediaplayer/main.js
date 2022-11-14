@@ -77,7 +77,7 @@ reduce.addEventListener("click", reducir);
 function play(){
     if(vid.paused){
         vid.play();
-        player.src="../img/pause-svgrepo-com.svg"
+        player.src="https://cdn-icons-png.flaticon.com/512/16/16427.png"
     }else{
         vid.pause()
         player.src="https://i.postimg.cc/wTbJgPGZ/play-button-svgrepo-com.png"
