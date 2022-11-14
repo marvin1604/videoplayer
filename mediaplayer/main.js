@@ -15,8 +15,7 @@ function inicio(){
     vid.src = `${videoSources[videoActual].sources}`;
     titulo.innerHTML = `${videoSources[videoActual].title}`;
     descripcion.innerHTML = `${videoSources[videoActual].description}`;
-    barraLateral();    
-    // reproducir();
+    reproducir();
     //tiempo del video
     vid.onloadeddata = actualizar;
     vid.ontimeupdate = actualizar;
@@ -43,6 +42,13 @@ function barraLateral(){
         const cardInfo = document.createElement("div");
         cardInfo.classList = "cardInfo";
 
+        card.onclick = () => {
+            const index = videoSources.indexOf(element);
+            console.log(index);
+            videoActual = index;
+            inicio();
+        };
+
         cardInfo.append(tituloCard, autorCard);
         card.append(imagen, cardInfo);
         containerCard.appendChild(card);
@@ -57,8 +63,8 @@ const reload = document.querySelector(".reiniciar");
 const reduce = document.querySelector(".reducir");
 const containerControls = document.querySelector("#fila3");
 const tiempo = document.querySelector(".estado");
-const card = document.querySelector(".card");
-const volumeRange = document.querySelector("#volume-range")
+const volumeRange = document.querySelector("#volume-range");
+const videoTime = document.querySelector("#video-time");
 
 
 player.addEventListener("click", play);
@@ -83,6 +89,7 @@ function reproducir(){
     vid.src = `${videoSources[videoActual].sources}`;
     vid.play();
 }
+
 function reiniciar(){
     vid.currentTime = 0;
     reproducir();
@@ -105,19 +112,26 @@ function reducir(){
     if (vid.classList.contains('fullscreen')) {
         vid.classList.remove('fullscreen');
         containerControls.classList.remove('fullscreen-controls');
-      } else {
+        } else {
         vid.classList.add('fullscreen');
         containerControls.classList.add('fullscreen-controls');
-      }
+        }
 }
 
 /* control del tiempo */
 function actualizar(){
     tiempo.innerHTML = `${convertir(vid.currentTime)} / ${convertir(vid.duration)}`
-
     let porcentaje = (100 * vid.currentTime) / vid.duration;
+    videoTime.value = porcentaje;
+    
+}
 
-    document.querySelector(".barra2").style.width= `${porcentaje}%`
+function reloadTime(){
+    vid.pause();
+    let nuevoTime = (videoTime.value * vid.duration)/100;
+    console.log(nuevoTime);
+    vid.currentTime = nuevoTime;
+    vid.play();
 }
 
 function convertir(segundos){
@@ -126,8 +140,6 @@ function convertir(segundos){
     let minuto = (d.getMinutes()<=9) ? "0" + d.getMinutes() : d.getMinutes();
     return `${minuto} : ${segundo}`
 }
-
-
 
 /* control-volumen*/
 const setInitialVolume = () => {
@@ -160,6 +172,9 @@ function volumenShow(){
     }
 }
 
-volumeRange.addEventListener("click", setVolume);
+volumeRange.addEventListener("input", setVolume);
 volumen.addEventListener("click", volumenShow);
-window.addEventListener("load", setInitialVolume, reproducir);
+videoTime.addEventListener("input", reloadTime);
+window.addEventListener("load",reproducir);
+barraLateral();
+setInitialVolume();
